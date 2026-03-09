@@ -11,6 +11,9 @@ Uses page object model pattern, a separate script that picks up HTML elements fo
 
 Tests pass and fail as expected. In production, would spend more time stepping through code in headed testing to verify no false positives or otherwise brittle tests.
 
+<img width="1620" height="667" alt="Test run" src="https://github.com/user-attachments/assets/8296e62a-fafe-4dd2-a9f1-a89e5c5ace25" />
+
+
 ## Automated Tests
 
 ### Setup
