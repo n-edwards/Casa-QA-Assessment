@@ -79,7 +79,7 @@ pages/
 
   - **Confirmation math inconsistencies:** The total confirmation count on older transactions (like Jan 28) does not mathematically align with the current block height implied by newer transactions (nitpick caught by Claude).
 
-## Part 3 — AI Tooling
+## AI Tooling
 
 Claude and Google Gemini were utilized during the assessment. 
 Claude to scaffold the initial Playwright Page Object Model, helper functions, test descriptions, test steps and locators. 
