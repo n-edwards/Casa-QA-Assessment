@@ -1,0 +1,15 @@
+{
+  "name": "casa-qa-assessment",
+  "version": "1.0.0",
+  "description": "QA Engineer assessment — Playwright tests for Casa staging vault dashboard",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npx playwright test --ui",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
