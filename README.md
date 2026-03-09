@@ -34,7 +34,7 @@ Run one script in UI mode: `npx playwright test tests/01-vault-summary.spec.ts -
 Pause in scripts: `await page.pause();`
 
 ### Test Structure  
-Tests are numbered by loose priority. Script 05 is extra checks beyond the initial scope of the assessment, so show some awareness of testing beyond UI/UX.
+Tests are numbered by loose priority. Script 05 is extra checks beyond the initial scope of the assessment, to show some awareness of testing beyond UI/UX.
 
 ```
 tests/
