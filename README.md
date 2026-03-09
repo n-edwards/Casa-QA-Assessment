@@ -96,8 +96,8 @@ Gemini and Antigravity editor (larger context, more tokens) to iterate on testin
 - Removing `networkidle` waits, which don't fit a dynamic React app and cause test failures
 - Understanding that `count()` checks do not await
 
-Fed to Gemini: errors and code snippents. Screenshots of the dashboard's dynamic and collapsible elements.
+Fed to Gemini: errors and code snippets. Screenshots of the dashboard's dynamic and collapsible elements.
 
-Lessons: Starting smaller might be better. Initial scaffold from Claude was quite broad, and took extra time to walk through, understand, debug and simplify. Something simpler based on expanded requirements and some initial exploratory testing may have been easier to build on.
+Lessons: Starting smaller might be better. Initial scaffold from Claude was quite broad, and took extra time to walk through, understand, debug and simplify (and likely still needs some more simplifying). A testing skeleton based on expanded requirements and some initial exploratory testing may have been easier to build on.
 
 Future: Check out Playwright MCP and CLI AI tools.
