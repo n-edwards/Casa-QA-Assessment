@@ -1,33 +1,39 @@
+// Page and Locator are core Playwright types.
+// Page represents a single browser tab/context; Locator re-queries the live DOM when called.
 import { Page, Locator } from '@playwright/test';
 
+// Page Object Model (POM): encapsulates selectors for a page.
+// Reusable code imported by other scripts. Edits here apply across the test suite's imports.
 export class VaultDashboardPage {
-  readonly page: Page;
-  readonly baseUrl = 'https://app-stg.keys.casa/qa_hire_q1_2026';
+  readonly baseUrl = 'https://app-stg.keys.casa/qa_hire_q1_2026'; // `readonly` prevents reassignment
 
-  constructor(page: Page) {
-    this.page = page;
-  }
+  // Initialize our `page` Playwright test handle.
+  constructor(readonly page: Page) { }
 
+  // Navigates the browser to the vault dashboard URL
   async goto() {
     await this.page.goto(this.baseUrl);
-    //await this.page.waitForLoadState('networkidle'); // Trying to wait for dynamic elements to load, but active React apps are never really idle. Just rely on config timeout for now.
   }
 
   // --- Vault Summary ---
 
+  // TypeScript getter properties: accessing `dashboard.vaultName` returns a Locator 
   get vaultName(): Locator { return this.page.getByTestId('vault-name'); }
   get vaultType(): Locator { return this.page.getByTestId('vault-type'); }
   get totalBalance(): Locator { return this.page.getByTestId('total-balance'); }
   get usdEquivalent(): Locator { return this.page.getByTestId('usd-equivalent'); }
 
-  // --- Key Health (inside vault summary card) ---
+  // --- Key Health ---
 
+  // Pass in a number to locate keys by test ID 1, 2, etc. $ is template literal.
   getKeyByIndex(index: number): Locator {
     return this.page.getByTestId(`key-key-${index}`);
   }
 
+
+  // Get all keys that start with "key-key-" followed by one or more digits.
   getAllKeys(): Locator {
-    return this.page.getByTestId(/key-key-\d+/); // Should start with key-key, and have a digit after.
+    return this.page.getByTestId(/key-key-\d+/); // Regex. Should start with key-key, and have a digit after.
   }
 
   // --- Transaction History ---
@@ -35,10 +41,13 @@ export class VaultDashboardPage {
   get sortToggle(): Locator { return this.page.getByTestId('sort-toggle'); }
   get transactionTable(): Locator { return this.page.getByTestId('transaction-table'); }
 
+  // Regex. Matches all transaction rows starting with "transaction-row-", same approach as getAllKeys().
   getAllTransactionRows(): Locator {
-    return this.page.locator('[data-testid^="transaction-row-"]');
+    return this.page.getByTestId(/^transaction-row-/);
   }
 
+  // There are just 8 transactions on our test page. We can pass in numbers here to get at each row.
+  // Would need something more complex for a large history.
   getTransactionRow(txId: string): Locator {
     return this.page.getByTestId(`transaction-row-${txId}`);
   }
@@ -59,11 +68,14 @@ export class VaultDashboardPage {
     return this.page.getByTestId(`tx-fee-${txId}`);
   }
 
+  // Clicks the sort toggle and waits 400ms for the DOM re-render 
   async toggleSort() {
     await this.sortToggle.click();
-    await this.page.waitForTimeout(400);
+    await this.page.waitForTimeout(400); // Could be an `expect` instead.
   }
 
+  // Clicks the expand icon for a given transaction and waits for the
+  // animation/render to complete before any assertions run
   async expandTransaction(txId: string) {
     await this.getExpandIcon(txId).click();
     await this.page.waitForTimeout(300);
