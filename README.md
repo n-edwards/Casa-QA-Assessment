@@ -98,6 +98,6 @@ Gemini and Antigravity editor (larger context, more tokens) to iterate on testin
 
 Fed to Gemini: errors and code snippets. Screenshots of the dashboard's dynamic and collapsible elements.
 
-Lessons: Starting smaller might be better. Initial scaffold from Claude was quite broad, and took extra time to walk through, understand, debug and simplify (and likely still needs some more simplifying). A testing skeleton based on expanded requirements and some initial exploratory testing may have been easier to build on.
+**Lessons:** Starting smaller might be better. Initial scaffold from Claude was quite broad, and took extra time to walk through, understand, debug and simplify (and likely still needs some more simplifying). A testing skeleton based on expanded requirements and some initial exploratory testing may have been easier to build on.
 
-Future: Check out Playwright MCP and CLI AI tools.
+**Future:** Check out Playwright MCP + CLI, plus similar QA AI avenues. These tools could be embedded at quality gates in the development process to help catch potential errors, hallucinations or bad practices introduced by rapid LLM-assisted development, and to generate test scaffolding early for QA.
