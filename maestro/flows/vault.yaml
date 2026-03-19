@@ -1,6 +1,6 @@
 appId: com.casa.vault.staging
 ---
-# Core user journey: open vault → check keys → receive address
+# Core user journey: open vault → check keys → receive address. Conceptual and not intended to pass/fail in Maestro.
 #
 # Covers the most common Casa session. A user opens the app, confirms
 # their vault looks right, checks key health, and grabs an address
