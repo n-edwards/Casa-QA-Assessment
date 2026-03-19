@@ -1,0 +1,56 @@
+appId: com.casa.vault.staging
+---
+# Core user journey: open vault → check keys → receive address
+#
+# Covers the most common Casa session. A user opens the app, confirms
+# their vault looks right, checks key health, and grabs an address
+# to receive funds. No hardware wallet interaction, so this runs
+# fully on a simulator.
+
+# Additional considerations could be made around different device types, resolutions, OS versions.
+# Usually this is covered by simulator settings. Could involve a physical device farm partner if we have broad device stability requirements.
+
+# --- Dashboard ---
+- launchApp
+- assertVisible: "Vault"
+- assertVisible:
+    id: "vault-balance"
+- assertVisible: "3-of-5"
+
+# --- Key health ---
+- tapOn: "Keys"
+- assertVisible: "Mobile Key"
+- assertVisible: "Healthy"
+- back
+
+# --- Receive address ---
+- tapOn: "Receive"
+- assertVisible:
+    id: "qr-code"
+
+# Copy address and validate format via JS (example of custom functions we might write)
+# Maestro 2.x uses GraalJS (ES2022) by default.
+- copyTextFrom:
+    id: "receive-address"
+- runScript:
+    script: |
+      const addr = maestro.copiedText;
+      const isTestnet = addr.startsWith("tb1q");
+      const validLength = addr.length >= 42 && addr.length <= 62;
+      if (!isTestnet || !validLength) {
+        throw new Error("Expected valid testnet address, got: " + addr);
+      }
+
+- tapOn: "Copy Address"
+- assertVisible: "Copied"
+- tapOn: "Close"
+
+# Back on dashboard — session complete
+- assertVisible: "Vault"
+
+# Next step would be flows for transaction signing.
+# Signing flows would require mocked responses at the API
+# layer (discussed in README).
+
+# Could use `runScript` here again (seen above) to verify API responses using JS code.
+# JS code could be usable across Playwright and Maestro tests, if the checks are the same in both.
